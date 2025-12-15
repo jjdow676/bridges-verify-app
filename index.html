@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#005696">
+    <title>Bridges Verify</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <img src="icons/bridges-logo.png" alt="Bridges" class="logo" onerror="this.style.display='none'">
+                <h1>Bridges Verify</h1>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Loading Screen -->
+            <div id="loading-screen" class="screen active">
+                <div class="loading-spinner"></div>
+                <p>Loading verification details...</p>
+            </div>
+
+            <!-- Error Screen -->
+            <div id="error-screen" class="screen">
+                <div class="error-icon">!</div>
+                <h2 id="error-title">Link Invalid</h2>
+                <p id="error-message">This verification link is invalid or has expired.</p>
+                <p class="help-text">Please contact your Bridges representative for a new link.</p>
+            </div>
+
+            <!-- Participant Verification Screen -->
+            <div id="participant-screen" class="screen">
+                <div class="info-card">
+                    <h2>Employment Verification</h2>
+                    <div class="verification-details">
+                        <div class="detail-row">
+                            <span class="label">Employer:</span>
+                            <span id="p-employer" class="value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Job Title:</span>
+                            <span id="p-job-title" class="value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Milestone:</span>
+                            <span id="p-milestone" class="value badge">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="participant-form" class="verification-form">
+                    <div class="form-group">
+                        <label for="verification-type">What are you uploading?</label>
+                        <select id="verification-type" required>
+                            <option value="">Select type...</option>
+                            <option value="paystub">Paystub</option>
+                            <option value="schedule">Work Schedule</option>
+                            <option value="timesheet">Timesheet</option>
+                            <option value="other">Other Proof of Employment</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="last-work-date">Last Day Worked</label>
+                        <input type="date" id="last-work-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <div class="file-upload-area" id="file-upload-area">
+                            <input type="file" id="file-input" accept="image/*,.pdf" capture="environment" hidden>
+                            <div class="upload-placeholder" id="upload-placeholder">
+                                <div class="upload-icon">+</div>
+                                <p>Tap to take photo or select file</p>
+                                <p class="small">Accepts images or PDF</p>
+                            </div>
+                            <div class="file-preview" id="file-preview" hidden>
+                                <img id="preview-image" src="" alt="Preview">
+                                <div class="file-name" id="file-name"></div>
+                                <button type="button" class="remove-file" id="remove-file">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="participant-submit">
+                        <span class="btn-text">Submit Verification</span>
+                        <span class="btn-spinner" hidden></span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Employer Verification Screen -->
+            <div id="employer-screen" class="screen">
+                <div class="info-card">
+                    <h2>Employment Verification Request</h2>
+                    <p class="intro-text">Bridges from School to Work is requesting verification of employment for:</p>
+                    <div class="participant-info">
+                        <div class="participant-name" id="e-participant-name">-</div>
+                        <div class="detail-row">
+                            <span class="label">Position:</span>
+                            <span id="e-job-title" class="value">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Milestone:</span>
+                            <span id="e-milestone" class="value badge">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="employer-form" class="verification-form">
+                    <div class="form-group">
+                        <label>Is this person currently employed at your organization?</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="is-employed" value="true" required>
+                                <span class="radio-label">Yes, still employed</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="is-employed" value="false">
+                                <span class="radio-label">No longer employed</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="last-work-date-group">
+                        <label for="e-last-work-date">Last Day Worked (or most recent)</label>
+                        <input type="date" id="e-last-work-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-comments">Additional Comments (optional)</label>
+                        <textarea id="e-comments" rows="3" placeholder="Any additional information..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="employer-submit">
+                        <span class="btn-text">Submit Verification</span>
+                        <span class="btn-spinner" hidden></span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success Screen -->
+            <div id="success-screen" class="screen">
+                <div class="success-icon">✓</div>
+                <h2>Verification Submitted!</h2>
+                <p>Thank you for completing this verification.</p>
+                <p class="help-text">You can close this window now.</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Bridges from School to Work</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+    "navigationFallback": {
+        "rewrite": "/index.html",
+        "exclude": ["*.css", "*.js", "*.png", "*.jpg", "*.ico", "*.json"]
+    },
+    "routes": [
+        {
+            "route": "/p/*",
+            "rewrite": "/index.html"
+        },
+        {
+            "route": "/e/*",
+            "rewrite": "/index.html"
+        }
+    ],
+    "globalHeaders": {
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://bridgestowork.my.site.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self';"
+    }
+}
