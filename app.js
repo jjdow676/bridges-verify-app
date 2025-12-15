@@ -32,25 +32,25 @@ const elements = {
     // Participant elements
     pEmployer: document.getElementById('p-employer'),
     pJobTitle: document.getElementById('p-job-title'),
-    pMilestone: document.getElementById('p-milestone'),
     participantForm: document.getElementById('participant-form'),
-    verificationType: document.getElementById('verification-type'),
     lastWorkDate: document.getElementById('last-work-date'),
     fileUploadArea: document.getElementById('file-upload-area'),
     fileInput: document.getElementById('file-input'),
     uploadPlaceholder: document.getElementById('upload-placeholder'),
     filePreview: document.getElementById('file-preview'),
     previewImage: document.getElementById('preview-image'),
+    fileIcon: document.getElementById('file-icon'),
     fileName: document.getElementById('file-name'),
     removeFile: document.getElementById('remove-file'),
     participantSubmit: document.getElementById('participant-submit'),
     // Employer elements
     eParticipantName: document.getElementById('e-participant-name'),
     eJobTitle: document.getElementById('e-job-title'),
-    eMilestone: document.getElementById('e-milestone'),
     employerForm: document.getElementById('employer-form'),
     eLastWorkDate: document.getElementById('e-last-work-date'),
     eComments: document.getElementById('e-comments'),
+    eSignatureName: document.getElementById('e-signature-name'),
+    eSignatureTitle: document.getElementById('e-signature-title'),
     employerSubmit: document.getElementById('employer-submit')
 };
 
@@ -170,7 +170,6 @@ function showParticipantScreen(data) {
         elements.pEmployer.textContent = data.jobPlacement.employerName || '-';
         elements.pJobTitle.textContent = data.jobPlacement.jobTitle || '-';
     }
-    elements.pMilestone.textContent = data.verificationLevel || '-';
     showScreen('participant-screen');
 }
 
@@ -179,7 +178,6 @@ function showEmployerScreen(data) {
         elements.eParticipantName.textContent = data.jobPlacement.participantName || '-';
         elements.eJobTitle.textContent = data.jobPlacement.jobTitle || '-';
     }
-    elements.eMilestone.textContent = data.verificationLevel || '-';
     showScreen('employer-screen');
 }
 
@@ -205,11 +203,20 @@ function handleFileSelect(event) {
         elements.filePreview.hidden = false;
         elements.fileName.textContent = file.name;
 
-        if (file.type.startsWith('image/')) {
+        // Check if it's an image type (including HEIC)
+        const isImage = file.type.startsWith('image/') ||
+                       file.name.toLowerCase().endsWith('.heic') ||
+                       file.name.toLowerCase().endsWith('.heif');
+
+        if (isImage && file.type.startsWith('image/') && !file.type.includes('heic')) {
+            // Show image preview for standard image formats
             elements.previewImage.src = e.target.result;
-            elements.previewImage.hidden = false;
+            elements.previewImage.style.display = 'block';
+            elements.fileIcon.hidden = true;
         } else {
-            elements.previewImage.hidden = true;
+            // Show file icon for PDFs, HEIC, and other non-previewable formats
+            elements.previewImage.style.display = 'none';
+            elements.fileIcon.hidden = false;
         }
     };
     reader.readAsDataURL(file);
@@ -222,6 +229,8 @@ function clearFile() {
     elements.uploadPlaceholder.hidden = false;
     elements.filePreview.hidden = true;
     elements.previewImage.src = '';
+    elements.previewImage.style.display = 'none';
+    elements.fileIcon.hidden = true;
 }
 
 async function handleParticipantSubmit(event) {
@@ -238,7 +247,7 @@ async function handleParticipantSubmit(event) {
 
     try {
         const payload = {
-            verificationType: elements.verificationType.value,
+            verificationType: 'document',
             fileData: state.fileData,
             fileName: state.selectedFile.name,
             fileType: state.selectedFile.type,
@@ -286,7 +295,9 @@ async function handleEmployerSubmit(event) {
         const payload = {
             isEmployed: isEmployed.value === 'true',
             lastWorkDate: elements.eLastWorkDate.value,
-            comments: elements.eComments.value
+            comments: elements.eComments.value,
+            signatureName: elements.eSignatureName.value,
+            signatureTitle: elements.eSignatureTitle.value
         };
 
         const response = await fetch(`${CONFIG.apiUrl}/${state.token}`, {

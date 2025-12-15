@@ -337,6 +337,11 @@ html, body {
     word-break: break-all;
 }
 
+.file-icon {
+    font-size: 48px;
+    color: var(--primary);
+}
+
 .remove-file {
     background: var(--error);
     color: white;
@@ -388,6 +393,26 @@ html, body {
     color: var(--text-secondary);
     font-size: 0.9rem;
     margin-top: 8px;
+}
+
+/* Signature Section */
+.signature-section {
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.signature-section h3 {
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.signature-disclaimer {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.4;
 }
 
 /* Footer */

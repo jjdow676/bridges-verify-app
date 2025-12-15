@@ -48,25 +48,10 @@
                             <span class="label">Job Title:</span>
                             <span id="p-job-title" class="value">-</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Milestone:</span>
-                            <span id="p-milestone" class="value badge">-</span>
-                        </div>
                     </div>
                 </div>
 
                 <form id="participant-form" class="verification-form">
-                    <div class="form-group">
-                        <label for="verification-type">What are you uploading?</label>
-                        <select id="verification-type" required>
-                            <option value="">Select type...</option>
-                            <option value="paystub">Paystub</option>
-                            <option value="schedule">Work Schedule</option>
-                            <option value="timesheet">Timesheet</option>
-                            <option value="other">Other Proof of Employment</option>
-                        </select>
-                    </div>
-
                     <div class="form-group">
                         <label for="last-work-date">Last Day Worked</label>
                         <input type="date" id="last-work-date" required>
@@ -82,7 +67,8 @@
                                 <p class="small">Accepts images or PDF</p>
                             </div>
                             <div class="file-preview" id="file-preview" hidden>
-                                <img id="preview-image" src="" alt="Preview">
+                                <img id="preview-image" alt="Preview" style="display: none;">
+                                <div class="file-icon" id="file-icon" hidden>&#128196;</div>
                                 <div class="file-name" id="file-name"></div>
                                 <button type="button" class="remove-file" id="remove-file">Remove</button>
                             </div>
@@ -106,10 +92,6 @@
                         <div class="detail-row">
                             <span class="label">Position:</span>
                             <span id="e-job-title" class="value">-</span>
-                        </div>
-                        <div class="detail-row">
-                            <span class="label">Milestone:</span>
-                            <span id="e-milestone" class="value badge">-</span>
                         </div>
                     </div>
                 </div>
@@ -137,6 +119,19 @@
                     <div class="form-group">
                         <label for="e-comments">Additional Comments (optional)</label>
                         <textarea id="e-comments" rows="3" placeholder="Any additional information..."></textarea>
+                    </div>
+
+                    <div class="signature-section">
+                        <h3>Electronic Signature</h3>
+                        <p class="signature-disclaimer">By entering your name and title below, you are electronically signing this verification and confirming the information provided is accurate.</p>
+                        <div class="form-group">
+                            <label for="e-signature-name">Your Full Name</label>
+                            <input type="text" id="e-signature-name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="e-signature-title">Your Title</label>
+                            <input type="text" id="e-signature-title" required placeholder="Enter your job title">
+                        </div>
                     </div>
 
                     <button type="submit" class="submit-btn" id="employer-submit">
