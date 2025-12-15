@@ -1,12 +1,14 @@
 /* Bridges Verify Styles */
+/* Brand colors from bridgestowork.org */
 
 :root {
-    --primary: #005696;
-    --primary-dark: #004477;
-    --success: #28a745;
+    --primary: #00aaa6;
+    --primary-dark: #008a87;
+    --secondary: #0095da;
+    --success: #2e844a;
     --error: #dc3545;
     --warning: #ffc107;
-    --text-primary: #333;
+    --text-primary: #353542;
     --text-secondary: #666;
     --background: #f5f5f5;
     --card-bg: #fff;
@@ -37,10 +39,10 @@ html, body {
 
 /* Header */
 .app-header {
-    background: var(--primary);
-    color: white;
+    background: white;
     padding: 16px 20px;
     box-shadow: var(--shadow);
+    border-bottom: 3px solid var(--primary);
 }
 
 .header-content {
@@ -52,13 +54,18 @@ html, body {
 }
 
 .logo {
-    height: 32px;
+    height: 40px;
     width: auto;
 }
 
 .app-header h1 {
     font-size: 1.25rem;
     font-weight: 600;
+    color: var(--text-primary);
+}
+
+.app-header h1 span {
+    color: var(--primary);
 }
 
 /* Main Content */
