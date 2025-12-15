@@ -119,7 +119,8 @@ async function loadVerificationDetails() {
         const response = await fetch(`${CONFIG.apiUrl}/${state.token}`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
         });
 
@@ -247,7 +248,8 @@ async function handleParticipantSubmit(event) {
         const response = await fetch(`${CONFIG.apiUrl}/${state.token}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(payload)
         });
@@ -290,7 +292,8 @@ async function handleEmployerSubmit(event) {
         const response = await fetch(`${CONFIG.apiUrl}/${state.token}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(payload)
         });
